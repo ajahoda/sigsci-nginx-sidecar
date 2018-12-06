@@ -1,0 +1,22 @@
+version: '3'
+services:
+  sigsci-agent-sidecar:
+    build: 
+     context: ./sigsci-sidecar-alpine
+     dockerfile: Dockerfile
+    environment:
+     - SIGSCI_ACCESSKEYID=SETME
+     - SIGSCI_SECRETACCESSKEY=SETME
+    volumes:
+      - "varrun:/var/run/"
+  nginx-openresty:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    ports:
+     - "8181:80"
+    volumes:
+      - "varrun:/var/run/"
+
+volumes:
+  varrun:
